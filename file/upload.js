@@ -35,14 +35,17 @@ KISSY.add("upload", function(S){
 		document.body.onpaste = function(ev) {
 			if(S.UA.firefox){
 				//这是一个异步过程,时间随便定的
-				setTimeout(function(){
-					var bak = panel.html();
-					if(/\<img src=\"data:image\//.test(bak)){
-						var d = bak.match(/src=\"([^\"]+)/);
+				var bak = panel.html();
+				setTimeout(function(){				
+					var content = panel.html();
+					if(/\<img src=\"data:image\//.test(content)){
+						var d = content.match(/src=\"([^\"]+)/);
 						if(S.isArray(d) && d.length==2){
 							upload(d[1]);
 						}
 					}
+					//掩盖事实..
+					panel.html(bak);
 				},100);
 			}
 		
