@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>RunJS</title>
+		<style>
+			body{padding:0px;margin:0px;}
+			#container{
+				margin:20px auto;
+				padding:0px;
+				width:80%;height:300px;border:3px dotted #ddd;
+				overflow:hidden;
+				text-align:center;
+			}
+			#container img {
+				height:100%;
+			}
+			#container span {
+				display:block;
+				margin:20px;
+				font: bold 24px/36px 'Microsoft YaHei';
+				color:gray;
+			}
+			#result{margin:10px;text-align:center;color:#aaa;}
+		</style>
+		<script type="text/javascript" src="http://a.tbcdn.cn/??s/kissy/1.3.0/kissy.js"></script>
+		<script type="text/javascript" src="color.js"></script>
+		<script type="text/javascript" src="dd.js"></script>
+	</head>
+	<body>
+	
+		<div id="body">
+		<div id="container" style="">
+			<span>拖一张图片来这里，计算该图片中出现次数最多的颜色</span>
+		</div>
+		</div>
+		<div id="result">1</div>
+	
+		<script>
+
+			var t = new color();	
+			new dd("container",function(img){
+				t.check(img,function(d){
+					var color = "#"+d[0][0];
+					document.getElementById("body").style.backgroundColor=color;
+					document.getElementById("result").innerText="出现次数最多的颜色："+color;
+				});
+			})
+
+		</script>
+
+		
+	</body>
+</html>
+
+<!--
+http://msdn.microsoft.com/zh-cn/library/jj203843(v=vs.85).aspx
+http://shiba.hpe.cn/jiaoyanzu/wuli/showArticle.aspx?articleId=1058&classId=5
+页面仔和他的小创新   http://www.programmer.com.cn/15865/
+-->
+
+
+
+
+
+
+
