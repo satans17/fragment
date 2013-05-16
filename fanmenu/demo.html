@@ -14,7 +14,7 @@
 		.demosection{
 			margin:20px;
 			padding:10px;
-			min-height:300px;
+			min-height:100px;
 			background:#fff;
 		}
 		
@@ -44,7 +44,7 @@
 	<h2>从页面已有的节点中构造</h2>
 
 	<div class="para" style="width:500px;">淘宝网是亚太最大的网络零售商圈，致力打造全球领先网络零售商圈，由阿里巴巴集团（点击这里这里）在2003年5月10日投资创立。淘宝网现在业务跨越C2C（个人对个人）、B2C（商家对个人）两大部分。截止2010年12月31日，淘宝网注册会员超3.7亿人，覆盖了中国绝大部分网购人群；2011年交易额为6100.8亿元，占中国网购市场80%的份额。比2010年增长66%。2012年11月11日，淘宝单日交易额191亿元。 <a id="J_demo1" href='#'>查看更多</a> （点这里点这里点这里） <span class="doubtIcon"></span></div>
-	
+	<style>.submenu{display:none}</style>
 	<div class="submenu">
 		<a href="#">淘宝</a>
 		<a href="#">支付宝</a>
@@ -57,13 +57,19 @@
 	<script>
 	KISSY.use("sizzle,gallery/funmenu", function(S,sizzle,Funmenu){
 		var $=S.all;
-		var menu = new Funmenu({
+		var demo1 = new Funmenu({
 			trigger:"#J_demo1",
 			items:$(".submenu a"),
 			itemCls:"item",
+			//triggerType:"hover",
 			intervalDeg:60,
 			path:false
 		});
+		console.log(demo1.get("triggerType"));
+		demo1.get("items").on("click", function(ev){
+			ev.halt();
+			console.log(ev.target);
+		})
 	})
 	</script>
 	
@@ -96,29 +102,33 @@
 		var $=S.all;
 		var menu = new Funmenu({
 			trigger:"#J_demo2",
+			duration: 1,
+			anim:100,
 			items:[{
 				html:'<div class="demo2item"><a href="#">按钮一</a></div>',
 				event:function(ev){
 					ev.halt();
-					alert($(ev.target).text());
+					console.log(ev);
+					console.log($(ev.target).text());
+					ev.funmenu.hide();
 				}
 			},{
 				html:'<div class="demo2item"><a href="#">按钮二</a></div>',
 				event:function(ev){
 					ev.halt();
-					alert($(ev.target).text());
+					console.log($(ev.target).text());
 				}
 			},{
 				html:'<div class="demo2item"><a href="#">按钮三</a></div>',
 				event:function(ev){
 					ev.halt();
-					alert($(ev.target).text());
+					console.log($(ev.target).text());
 				}
 			},{
 				html:'<div class="demo2item"><a href="#">按钮四</a></div>',
 				event:function(ev){
 					ev.halt();
-					alert($(ev.target).text());
+					console.log($(ev.target).text());
 				}
 			}]
 		});
@@ -130,7 +140,137 @@
 
 
 
+<div class="demosection">	
+<h2>可以拖动的菜单</h2>
+<style>
+#J_demo3{
+	position:fixed;
+	right:100px;
+	bottom:100px;
+	width:50px;
+	height:50px;
+	line-height:50px;
+	text-align:center;
+	background:#b91d47;
+	color:#fff;
+	border-radius:50px;
+}
+</style>
+<a href="#" id="J_demo3">拖动我</a>
+<div id="submenu3">
+	<a href="#">淘宝</a>
+	<a href="#">支付宝</a>
+	<a href="#">天猫</a>
+</div>
 
+	<script>
+	KISSY.use("dd,sizzle,gallery/funmenu", function(S,DD,sizzle,Funmenu){
+		var $=S.all;
+		var demo1 = new Funmenu({
+			trigger:"#J_demo3",
+			items:$("#submenu3 a"),
+			itemCls:"item",
+			//triggerType:"hover",
+			intervalDeg:40,
+			path:false
+		});
+
+		var drag=new DD.Draggable({
+			node:'#J_demo3',
+			cursor:'move',
+			move:true
+		});
+		
+		
+	})
+	</script>
+</div>	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+<div class="demosection">	
+<h2>滚动</h2>
+<style>
+#J_demo4{
+	position:absolute;
+	left:20px;
+	bottom:20px;
+	width:50px;
+	height:50px;
+	line-height:50px;
+	text-align:center;
+	background:#00a300;
+	color:#fff;
+	border-radius:50px;
+}
+</style>
+<a href="#" id="J_demo4">点我</a>
+<div id="submenu4">
+	<a href="#">淘宝</a>
+	<a href="#">支付宝</a>
+	<a href="#">天猫</a>
+	<a href="#">聚划算</a>
+	<a href="#">一淘</a>
+	<a href="#">1688</a>
+</div>
+	<script>
+	KISSY.use("sizzle,gallery/funmenu", function(S,sizzle,Funmenu){
+		var $=S.all,DOM = S.DOM,
+			trigger4 = $("#J_demo4"),
+			demo4 = new Funmenu({
+				trigger:trigger4,
+				intervalDeg:60,
+				duration:0.5,
+				items:$("#submenu4 a"),
+				itemCls:"item",
+				//设置为空
+				triggerType:""
+			});
+		
+		trigger4.on("click",function(ev){
+			if(demo4.get("visible")){
+				demo4.hide();
+			}else{
+				$(this).animate({
+					left:DOM.viewportWidth()/2,
+					bottom:DOM.viewportHeight()/2
+				},.5,"easeNone",function(){
+					demo4.show();
+				});
+			}
+		})
+		
+		demo4.on("hide",function(){
+			S.later(function(){
+				trigger4.animate({
+					left:20,
+					bottom:20
+				},.5,"easeNone");
+			},100);
+		})
+
+
+		
+	})
+	</script>
+</div>
+	
+	
+	
+	
+	
+	
+	
 
 
 </body>

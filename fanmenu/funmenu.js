@@ -9,6 +9,14 @@ KISSY.add("gallery/funmenu", function(S){
 
     //属性
     Funmenu.ATTRS = {
+		//构建一个容器，节点都放body下面不好看
+		wrapper:{
+			value:{}
+		},
+		//私有属性，菜单项是否已渲染
+		isRender:{
+			value:false
+		},
 		//第一个菜单的度数
 		startDeg:{
 			value:30
@@ -38,7 +46,7 @@ KISSY.add("gallery/funmenu", function(S){
 		},
 		//为了也能适应pc机
 		triggerType:{
-			value:"click"
+			value:(S.UA.android||S.UA.ios)?"tap":"click"
 		},
 		//是否显示
         visible: {
@@ -74,22 +82,35 @@ KISSY.add("gallery/funmenu", function(S){
 		_init: function(){
 			var self = this,
 				trigger = $(self.get("trigger")),
-				items = $(self.get("items"));
+				items = $(self.get("items")),
+				hideMenu = function(){
+					self.hide();
+				};
 			
 			//重置属性值
 			self.set("trigger",trigger);
 
-			self.renderItems();
-			
-			trigger.on(self.get("triggerType"),function(){
+			//trigger事件
+			trigger.on(self.get("triggerType"),function(ev){
+				ev.halt();
 				self.toggle();
 			});
 			
 			
+			//点击空白处隐藏菜单
+			self.on('afterVisibleChange', function(ev){
+				if(ev.newVal===true){
+					$(document).on("click",hideMenu);
+				}else{
+					$(document).detach("click",hideMenu);
+				}
+			});
+			
 		},
-		
+		//渲染菜单项
 		renderItems: function(){
 			var self = this,
+				wrapper = $('<div class="ks-funmenu-wrapper"></div>'),
 				items = self.get("items");
 			//debugger;
 			
@@ -106,6 +127,7 @@ KISSY.add("gallery/funmenu", function(S){
 					node = $("<div/>").html(item.html);
 					if(S.isFunction(item.event)){
 						node.on("click",function(ev){
+							ev["funmenu"]=self;
 							item.event(ev);
 						})
 					}
@@ -114,7 +136,7 @@ KISSY.add("gallery/funmenu", function(S){
 				items = $(tmpnode.all(tmpnode[0].childNodes));
 			}
 			
-			items.appendTo(document.body);
+			items.appendTo(wrapper);
 			items.hide().css({
 				position:"absolute"
 			});
@@ -122,6 +144,11 @@ KISSY.add("gallery/funmenu", function(S){
 				items.addClass(self.get("itemCls"));
 			}
 			self.set("items",$(items));	
+			
+			
+			wrapper.appendTo(document.body);
+			self.set("wrapper",wrapper);
+			self.set("isRender",true);
 		},
 		
 		//获取圆心的坐标
@@ -138,8 +165,13 @@ KISSY.add("gallery/funmenu", function(S){
 		
 		//展示菜单
 		show: function(){
-			var self = this,
-				trigger = self.get("trigger"),
+			var self = this;
+			//是否被渲染过
+			if(!self.get("isRender")){
+				self.renderItems();
+			}
+			
+			var trigger = self.get("trigger"),
 				items = self.get("items"),
 				center = self._getXY(),
 				direction = self.get("direction"),
@@ -150,7 +182,8 @@ KISSY.add("gallery/funmenu", function(S){
 				easing = self.get("easing"),
 				anim = self.get("anim");
 				
-			self.set("visible",true);	
+			items.stop(true);	
+			self.set("visible",true);
 			
 			items.each(function(item,i){
 				//重置items,可能出现item大小不一致的情况
@@ -173,13 +206,8 @@ KISSY.add("gallery/funmenu", function(S){
 				})(item,i),anim*i);
 				
 			});
-
-			var hide=function(){
-				self.hide();
-				console.log("hide");
-			}
-			//隐藏啊
-			//$(document.body).on("click",hide);
+			
+			self.fire("show");
 
 		},
 		
@@ -191,7 +219,8 @@ KISSY.add("gallery/funmenu", function(S){
 				items = self.get("items"),
 				center = self._getXY(),
 				anim = self.get("anim");
-				
+			
+			items.stop(true);
 			self.set("visible",false);
 			items.each(function(item,index){
 				S.later((function(item){
@@ -207,7 +236,7 @@ KISSY.add("gallery/funmenu", function(S){
 				})(item),anim*index);
 			});
 			
-			
+			self.fire("hide");
 		},
 		
 		//显示，隐藏
@@ -235,32 +264,6 @@ KISSY.add("gallery/funmenu", function(S){
 			y: y - Math.cos(deg2Rad(direction*deg)) * r
 		}
 	}
-	
-	
-	
-	
-	
-			
-			// //绘制路径
-			// if(self.get("path")){
-				// for(var i=0;i<60;i++){
-					// var xy = circle(center.x,center.y,distance,i*6,1);
-					// $("<div/>")
-						// .css({
-							// position:"absolute",
-							// top:xy.x,
-							// left:xy.y,
-							// background:"red",
-							// width:2,
-							// height:2,
-							// overflow:"hidden"
-						// })
-						// .appendTo(document.body);
-				// }
-			// }	
-	
-	
-	
 	
 	
 	
