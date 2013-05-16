@@ -1,0 +1,137 @@
+<html>
+<head>
+    <title>扇形菜单</title>
+    <meta charset="utf-8"/>
+	<link rel="stylesheet" href="http://a.tbcdn.cn/p/global/1.0/global-min.css?t=20130320.css" />
+    <script src="http://a.tbcdn.cn/s/kissy/1.3.0/kissy.js"></script>
+	<script src="funmenu.js"></script>
+	<style>
+		
+		body{
+			background:#eee;
+		}
+		
+		.demosection{
+			margin:20px;
+			padding:10px;
+			min-height:300px;
+			background:#fff;
+		}
+		
+		.item, .demo2item{
+			width:50px;
+			height:50px;
+			line-height:50px;
+			overflow:hidden;
+			border-radius:50px;
+			text-align:center;
+			background:#000;
+			color:#fff;
+		}
+		.demo2item a{
+			color:#fff;
+		}
+		
+	</style>
+	
+	
+	
+</head>
+<body>
+
+
+<div class="demosection">
+	<h2>从页面已有的节点中构造</h2>
+
+	<div class="para" style="width:500px;">淘宝网是亚太最大的网络零售商圈，致力打造全球领先网络零售商圈，由阿里巴巴集团（点击这里这里）在2003年5月10日投资创立。淘宝网现在业务跨越C2C（个人对个人）、B2C（商家对个人）两大部分。截止2010年12月31日，淘宝网注册会员超3.7亿人，覆盖了中国绝大部分网购人群；2011年交易额为6100.8亿元，占中国网购市场80%的份额。比2010年增长66%。2012年11月11日，淘宝单日交易额191亿元。 <a id="J_demo1" href='#'>查看更多</a> （点这里点这里点这里） <span class="doubtIcon"></span></div>
+	
+	<div class="submenu">
+		<a href="#">淘宝</a>
+		<a href="#">支付宝</a>
+		<a href="#">天猫</a>
+		<a href="#">聚划算</a>
+		<a href="#">一淘</a>
+		<a href="#">1688</a>
+	</div>
+	
+	<script>
+	KISSY.use("sizzle,gallery/funmenu", function(S,sizzle,Funmenu){
+		var $=S.all;
+		var menu = new Funmenu({
+			trigger:"#J_demo1",
+			items:$(".submenu a"),
+			itemCls:"item",
+			intervalDeg:60,
+			path:false
+		});
+	})
+	</script>
+	
+	
+</div>
+
+
+
+<div class="demosection" style="position:relative;">
+
+	<h2>通过配置构造节点</h2>
+	
+	<a href="#" id="J_demo2">这是一个测试</a>
+
+	
+	<style>
+	#J_demo2{
+		position:absolute;
+		left:200px;
+		top:50px;
+		width:50px;
+		height:50px;
+		background:#000;
+		color:#fff;
+		border-radius:50px;
+	}
+	</style>
+	<script>
+	KISSY.use("sizzle,gallery/funmenu", function(S,sizzle,Funmenu){
+		var $=S.all;
+		var menu = new Funmenu({
+			trigger:"#J_demo2",
+			items:[{
+				html:'<div class="demo2item"><a href="#">按钮一</a></div>',
+				event:function(ev){
+					ev.halt();
+					alert($(ev.target).text());
+				}
+			},{
+				html:'<div class="demo2item"><a href="#">按钮二</a></div>',
+				event:function(ev){
+					ev.halt();
+					alert($(ev.target).text());
+				}
+			},{
+				html:'<div class="demo2item"><a href="#">按钮三</a></div>',
+				event:function(ev){
+					ev.halt();
+					alert($(ev.target).text());
+				}
+			},{
+				html:'<div class="demo2item"><a href="#">按钮四</a></div>',
+				event:function(ev){
+					ev.halt();
+					alert($(ev.target).text());
+				}
+			}]
+		});
+	})
+	</script>
+	
+</div>
+
+
+
+
+
+
+
+</body>
+</html>
