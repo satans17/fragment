@@ -21,7 +21,7 @@
 				//添加样式
 				self.addStyleSheet();
 				get("bookmark-qrcode-create").onclick = function(){
-					createQR(get("bookmark-qrcode-input").value);
+					self.createQR(get("bookmark-qrcode-input").value);
 				}
 				get("bookmark-qrcode-close").onclick = function(){
 					document.body.removeChild(container);
