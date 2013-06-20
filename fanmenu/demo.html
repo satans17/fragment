@@ -43,7 +43,9 @@
 <div class="demosection">
 	<h2>从页面已有的节点中构造</h2>
 
-	<div class="para" style="width:500px;">淘宝网是亚太最大的网络零售商圈，致力打造全球领先网络零售商圈，由阿里巴巴集团（点击这里这里）在2003年5月10日投资创立。淘宝网现在业务跨越C2C（个人对个人）、B2C（商家对个人）两大部分。截止2010年12月31日，淘宝网注册会员超3.7亿人，覆盖了中国绝大部分网购人群；2011年交易额为6100.8亿元，占中国网购市场80%的份额。比2010年增长66%。2012年11月11日，淘宝单日交易额191亿元。 <a id="J_demo1" href='#'>查看更多</a> （点这里点这里点这里） <span class="doubtIcon"></span></div>
+	<div class="para" style="padding:100px;">
+	<a id="J_demo1" href='#'>查看更多</a>
+	</div>
 	<style>.submenu{display:none}</style>
 	<div class="submenu">
 		<a href="#">淘宝</a>
@@ -61,6 +63,7 @@
 			trigger:"#J_demo1",
 			items:$(".submenu a"),
 			itemCls:"item",
+			distance:100,
 			//triggerType:"hover",
 			intervalDeg:60,
 			path:false
@@ -104,33 +107,7 @@
 			trigger:"#J_demo2",
 			duration: 1,
 			anim:100,
-			items:[{
-				html:'<div class="demo2item"><a href="#">按钮一</a></div>',
-				event:function(ev){
-					ev.halt();
-					console.log(ev);
-					console.log($(ev.target).text());
-					ev.funmenu.hide();
-				}
-			},{
-				html:'<div class="demo2item"><a href="#">按钮二</a></div>',
-				event:function(ev){
-					ev.halt();
-					console.log($(ev.target).text());
-				}
-			},{
-				html:'<div class="demo2item"><a href="#">按钮三</a></div>',
-				event:function(ev){
-					ev.halt();
-					console.log($(ev.target).text());
-				}
-			},{
-				html:'<div class="demo2item"><a href="#">按钮四</a></div>',
-				event:function(ev){
-					ev.halt();
-					console.log($(ev.target).text());
-				}
-			}]
+			items:['<div class="demo2item"><a href="#">按钮1</a></div>','<div class="demo2item"><a href="#">按钮2</a></div>','<div class="demo2item"><a href="#">按钮3</a></div>']
 		});
 	})
 	</script>
@@ -180,6 +157,13 @@
 			cursor:'move',
 			move:true
 		});
+		
+		drag.on("dragend", function(){
+			if(demo1.get("visible")){
+				demo1.sync()
+			}
+		})
+		
 		
 		
 	})
@@ -244,7 +228,7 @@
 				$(this).animate({
 					left:DOM.viewportWidth()/2,
 					bottom:DOM.viewportHeight()/2
-				},.5,"easeNone",function(){
+				},.3,"easeNone",function(){
 					demo4.show();
 				});
 			}
@@ -255,7 +239,7 @@
 				trigger4.animate({
 					left:20,
 					bottom:20
-				},.5,"easeNone");
+				},.3,"easeNone");
 			},100);
 		})
 

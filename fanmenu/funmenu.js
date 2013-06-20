@@ -1,6 +1,20 @@
 KISSY.add("gallery/funmenu", function(S){
 	var $=S.all;
 	
+	//角度to弧度
+	function deg2Rad(deg){
+		return deg / 180 * Math.PI;
+	}
+
+	//计算对应弧度的坐标
+	function circle(x,y,r,deg,direction){
+		return {
+			x: x + Math.sin(deg2Rad(direction*deg)) * r,
+			y: y - Math.cos(deg2Rad(direction*deg)) * r
+		}
+	}
+	
+	//funmenu构造函数
 	function Funmenu(config){
         var self = this;
         Funmenu.superclass.constructor.call(self, config);
@@ -96,7 +110,6 @@ KISSY.add("gallery/funmenu", function(S){
 				self.toggle();
 			});
 			
-			
 			//点击空白处隐藏菜单
 			self.on('afterVisibleChange', function(ev){
 				if(ev.newVal===true){
@@ -105,49 +118,40 @@ KISSY.add("gallery/funmenu", function(S){
 					$(document).detach("click",hideMenu);
 				}
 			});
-			
 		},
-		//渲染菜单项
-		renderItems: function(){
+		//渲染菜单
+		render: function(){
 			var self = this,
 				wrapper = $('<div class="ks-funmenu-wrapper"></div>'),
 				items = self.get("items");
-			//debugger;
-			
-			//可以传入一个选择器
+				
+			//假设传入的是一个选择器
 			if(S.isString(items)){
+				items = $(items);
+			}	
+			//传如的是html
+			else if(S.isArray(items) && !(items instanceof S.Node)){
+				items = $(items.join(""));
+			}
+			else{
 				items = $(items);
 			}
 			
-			//自己配置
-			if(S.isArray(items)){
-				var node,tmpnode=$("<div/>")
-				//items.length=0;
-				S.each(items,function(item,i){
-					node = $("<div/>").html(item.html);
-					if(S.isFunction(item.event)){
-						node.on("click",function(ev){
-							ev["funmenu"]=self;
-							item.event(ev);
-						})
-					}
-					tmpnode.append(node);
-				});
-				items = $(tmpnode.all(tmpnode[0].childNodes));
-			}
+			items.css({
+				position:"absolute",
+				display:"none"
+			})
 			
-			items.appendTo(wrapper);
-			items.hide().css({
-				position:"absolute"
-			});
 			if(self.get("itemCls")){
 				items.addClass(self.get("itemCls"));
 			}
-			self.set("items",$(items));	
 			
-			
+			items.appendTo(wrapper);
 			wrapper.appendTo(document.body);
+			
+			self.set("items",$(items));	
 			self.set("wrapper",wrapper);
+			//标记为已渲染
 			self.set("isRender",true);
 		},
 		
@@ -166,24 +170,26 @@ KISSY.add("gallery/funmenu", function(S){
 		//展示菜单
 		show: function(){
 			var self = this;
+			
 			//是否被渲染过
 			if(!self.get("isRender")){
-				self.renderItems();
+				self.render();
 			}
 			
-			var trigger = self.get("trigger"),
-				items = self.get("items"),
+			var trigger = self.get("trigger"), items = self.get("items"),
 				center = self._getXY(),
 				direction = self.get("direction"),
 				distance = self.get("distance"),
 				startDeg = self.get("startDeg"),
 				intervalDeg = self.get("intervalDeg"),
-				duration = self.get("duration"),
-				easing = self.get("easing"),
+				duration = self.get("duration"), easing = self.get("easing"),
 				anim = self.get("anim");
-				
-			items.stop(true);	
+			
+			//停止所有动画
+			items.stop(true);
+			//标记为显示状态
 			self.set("visible",true);
+			self.fire("show");
 			
 			items.each(function(item,i){
 				//重置items,可能出现item大小不一致的情况
@@ -192,7 +198,7 @@ KISSY.add("gallery/funmenu", function(S){
 					top:center.y-item.height()/2,
 					opacity:0	
 				});
-				
+				//可以实现逐个展示菜单的效果
 				S.later((function(item,i){
 					return function(){
 						//开始动画
@@ -204,14 +210,10 @@ KISSY.add("gallery/funmenu", function(S){
 						},duration,easing,function(){});
 					};
 				})(item,i),anim*i);
-				
 			});
-			
-			self.fire("show");
-
 		},
 		
-		//隐藏菜单
+		//隐藏菜单，show的逆操作
 		hide: function(){
 			var self = this
 				duration = self.get("duration"),
@@ -222,6 +224,7 @@ KISSY.add("gallery/funmenu", function(S){
 			
 			items.stop(true);
 			self.set("visible",false);
+			self.fire("hide");
 			items.each(function(item,index){
 				S.later((function(item){
 					return function(){
@@ -235,38 +238,38 @@ KISSY.add("gallery/funmenu", function(S){
 					};
 				})(item),anim*index);
 			});
-			
-			self.fire("hide");
 		},
 		
 		//显示，隐藏
 		toggle: function(){
 			this.get("visible")?this.hide():this.show();
+		},
+		
+		//同步菜单和圆心的位置
+		sync: function(){
+			var self = this,
+				trigger = self.get("trigger"),
+				items = self.get("items"),
+				distance = self.get("distance"),
+				startDeg = self.get("startDeg"),
+				intervalDeg = self.get("intervalDeg"),
+				direction = self.get("direction"),
+				duration = self.get("duration"),
+				easing = self.get("easing"),
+				center = self._getXY();
+			
+			items.each(function(item,i){
+				var xy = circle(center.x, center.y, distance, startDeg+intervalDeg*i, direction);
+				item.show().animate({
+					left:xy.x-item.width()/2,
+					top:xy.y-item.height()/2,
+					opacity:1
+				},duration,easing,function(){});
+			});		
 		}
-		
-		
 	});
 	
 	
 	return Funmenu;
 	
-	
-	
-	//角度to弧度
-	function deg2Rad(deg){
-		return deg / 180 * Math.PI;
-	}
-
-	//计算对应弧度的坐标
-	function circle(x,y,r,deg,direction){
-		return {
-			x: x + Math.sin(deg2Rad(direction*deg)) * r,
-			y: y - Math.cos(deg2Rad(direction*deg)) * r
-		}
-	}
-	
-	
-	
-	
-
 });
