@@ -1,0 +1,221 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+	<meta name="format-detection" content="telephone=no"/>
+    <title>KISSY FAQ</title>
+    <script src="http://a.tbcdn.cn/s/kissy/1.3.0/kissy.js" charset="utf-8"></script>
+	<script src="src/1k/1k.js"></script>
+	<script src="src/1k/highlight.js"></script>
+	<script>
+		var S = KISSY;
+		if (S.Config.debug) {
+			var srcPath = "../../../";
+			S.config({
+				packages:[
+					{
+						name:"gallery",
+						path:srcPath,
+						charset:"utf-8",
+						ignorePackageNameInUri:true
+					}
+				]
+			});
+		}
+		S.ready(function(){
+			$1k.highlight.init({    //组件初始化
+				skin:'crm',//默认皮肤
+				edit:true,//开启编辑运行
+				JsRequire:''//导入js
+			});
+		});
+	</script>
+	
+<style>
+body{
+	margin:20px;
+	max-width:950px;
+	font-family:'Microsoft Yahei';
+}
+section{
+	margin-bottom:50px;
+}
+code {
+	display: inline;
+	padding: 2px 4px;
+	color: #d14;
+	white-space: nowrap;
+	background-color: #f7f7f9;
+	border: 1px solid #e1e1e8;
+	font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+	font-size: 12px;
+	border-radius: 3px;
+}	
+</style>
+	
+	
+</head>
+
+
+<body>
+
+
+
+<section>
+<h3>KISSY 是什么?</h3>
+
+<p>她是淘宝的前端类库, 几乎在淘宝的每个页面上都能看到她的身影！</p>
+
+</section>
+
+
+
+
+<section>
+<h3>KISSY与jQuery</h3>
+
+<p>你可以看看这个 <a href="http://cyj.me/jquery-kissy-rosetta/">jQuery - KISSY Rosetta Stone</a></p>
+<p>不过KISSY提供的功能远不止jQuery中的那些</p>
+</section>
+
+
+
+
+
+
+
+<section>
+<h3>如何使用KISSY</h3>
+
+<p>1、淘宝CDN地址：</p>
+<textarea class="lang-js">
+http://a.tbcdn.cn/s/kissy/1.3.0/kissy-min.js
+</textarea>
+
+<p>2、在github上下载KISSY源码，在项目中使用相对路径引用</p>
+<textarea class="lang-js">
+https://github.com/kissyteam/kissy
+</textarea>
+
+<p><a href="helloworld.html" target="_blank" title="查看demo">hello world!</a></p>
+<textarea class="lang-html">
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>KISSY FAQ</title>
+	<script src="http://a.tbcdn.cn/s/kissy/1.3.0/kissy.js"></script>
+</head>
+<body>
+<script>
+	KISSY.ready(function(S){
+		var $=S.all;
+		$(document.body).append($("<p>hello world!</p>"))
+	});
+</script>
+<body>
+<html>
+</textarea>
+
+</section>
+
+
+
+
+
+<section>
+<h3>DOM与Node的区别</h3>
+<p><a href="dom.html" target="_blank">DOM demo</a></p>
+<textarea class="lang-js">
+KISSY.ready(function(S){
+	var DOM=S.DOM, Event = S.Event,
+		btn = DOM.get("#btn")
+	Event.on(btn,"click", function(ev){
+		console.log(ev.target);
+	})
+});
+</textarea>
+
+
+<p><a href="node.html" target="_blank">Node demo</a></p>
+<textarea class="lang-js">
+KISSY.ready(function(S){
+	var $=S.all;
+	$("#btn").on("click", function(ev){
+		console.log($(ev.target));
+	})
+});
+</textarea>
+
+
+<p>通过上面两个demo，想必你已经大概明白了DOM和Node的区别了吧，DOM获取操作的都是dom对象，node 包括 
+<a href="http://docs.kissyui.com/docs/html/api/core/dom/index.html" title="dom">dom</a> ,
+<a href="http://docs.kissyui.com/docs/html/api/core/event/index.html" title="event">event</a> ,
+<a href="http://docs.kissyui.com/docs/html/api/core/anim/index.html" title="anim">anim</a> 
+模块的所有功能, 推荐采用 <tt class="docutils literal"><span class="pre">Node</span></tt> 模块,
+你只需要把 <tt class="docutils literal"><span class="pre">KISSY.all</span></tt> 看做 <tt class="docutils literal"><span class="pre">jquery</span></tt> 中的 <tt class="docutils literal"><span class="pre">$</span></tt> 就可以了。</p>
+<p>建议一致使用 <code>var $=KISSY.all;</code> 操作dom.</p>
+
+</section>
+
+
+
+
+
+
+
+<section>
+<h3>如何引用KISSY组件</h3>
+
+
+<textarea class="lang-js">
+KISSY.use("dd,button",function(S,DD,Button){
+	var drag=new DD.Draggable({
+		node:'#test',
+		cursor:'move',
+		move:true
+	});
+	S.log(Button);
+});
+</textarea>
+<p>以drag&drop为例，只用use对应的模块名即可</p>
+<p>打开<a href="dd.html" target="_blank">demo</a>，查看控制台->network，可以观察到，对应的js文件会被自动加载（可以一次加载多个模块，用逗号分割即可），是不是很方便呢？</p>
+<p>在业务模块中可以以require的形式引用模块，<a href="loader.html" target="_blank">查看demo</a></p>
+<textarea class="lang-js">
+KISSY.add("biz/mod", function(S,DD,Button){
+	var drag=new DD.Draggable({
+		node:'#test',
+		cursor:'move',
+		move:true
+	});
+	S.log(Button);
+	//....你的其他业务代码
+	return function(){
+		alert("红色的模块可以拖动哦");
+	}
+},{
+	requires:["dd","button"]
+})
+
+KISSY.ready(function(S){
+	S.use("biz/mod",function(S,mod){
+		mod();
+	})
+});
+
+</textarea>
+<p>如果你想深入了解模块引用相关的知识，你需要了解下<a href="http://docs.kissyui.com/docs/html/api/seed/loader/" title="dom">KISSY Loader</a> <p>
+
+
+</section>
+
+
+
+
+
+
+</body>
+</html>
