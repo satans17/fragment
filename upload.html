@@ -180,7 +180,7 @@
 			<div class="describe">
 				<!--可以在这里增加多个需要回填的隐藏域-->
 				<div id="otherfield">
-					<textarea id="input-describe" class="jfield" name="describe" rows="4" placeholder="请输入图片描述"></textarea>
+					<textarea style="display:none" id="input-describe" class="jfield" name="describe" rows="4" placeholder="请输入图片描述"></textarea>
 					<input class="jfield" type="hidden" name="test1" value="test1" />
 					<input class="jfield" type="hidden" name="test2" value="test2" />
 					<input class="jfield" type="hidden" name="test3" value="test3" />
@@ -216,7 +216,7 @@
 	
 	KISSY.ready(function(S){
 		var $=S.all, file=$("#jfile"), imageType = /image.*/,
-			maximg = 3,
+			maximg = 10,
 			content = $("#content"),
 			plus = $("#jplus"),
 			tpl = '<div class="imglist"><p class="img">load..</p><a class="btn del">删除图片</a></div>',
