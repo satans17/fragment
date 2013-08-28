@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<meta name="format-detection" content="telephone=no"/>
+
+		<title>performance timing</title>
+
+		<style>
+			body{margin:2em;}
+			code {
+				font-size: 0.9em;
+				word-wrap: break-word;
+				white-space: pre-wrap;
+				word-spacing: normal;
+				color: #333;
+				display: block;
+				padding: 2px 4px;
+				background-color: #f7f7f9;
+				border: 1px solid #e1e1e8;
+				font-family: Monaco,Menlo,Consolas,"Courier New",monospace;
+				border-radius: 3px;
+			}
+			section {
+				margin-bottom:50px;
+			}
+
+
+   .Plugin-timeing {
+        position: fixed;
+        top:0;
+        left:0;
+        z-index:999999;
+        width:100%;
+        height: 1;
+        padding:10px;
+        margin:0px;
+        background-color: #fff;
+        box-sizing: border-box;
+        border-bottom:1px solid #000;
+        box-shadow:0px 6px 10px #aaa;
+
+    }
+    .Plugin-timeing .bd{
+        margin:0 20% 0 0;
+        padding:0;
+    }
+    .Plugin-timeing .bd div{
+        position: relative;
+        min-width: 10px;
+        height: 20px;
+        margin: 10px 0;
+        padding:0;
+        background-color: rgb(174,114,118);
+        border-radius: 5px;
+    }
+    .Plugin-timeing div p{
+        position: absolute;
+        left: 100%;
+        width:200px;
+        padding:0 0 0 10px;
+        margin: 0;
+        line-height: 20px;
+    }
+
+
+		</style>
+		
+	</head>
+	<body>
+	
+
+
+<section>
+两种方式使用“performance timing”
+</section>	
+	
+<section>
+<p>一、打开某个网页后，在浏览器的地址栏里直接输入以下代码：</p>
+<p><code class="replace-uid">javascript:void (function (d) {var t=d.createElement('script');t.type='text/javascript';t.src='http://satans17.github.io/fragment/timing/timing.js';d.getElementsByTagName('head')[0].appendChild(t);})(document);</code></p>
+</section>
+
+
+<section>
+二、将以下链接添加到（拖放到）您的书签栏里，这样能方便您今后的使用：打开指定网页后，再点击书签栏里的 “二维码” 链接。
+<p><a href="javascript:void (function (d) {var t=d.createElement('script');t.type='text/javascript';t.src='http://satans17.github.io/fragment/timing/timing.js?tag=20130620.js';d.getElementsByTagName('head')[0].appendChild(t);})(document);" style="cursor: move;">performance timing</a></p>
+<p>如果您的浏览器没有显示书签栏，请先呼出它：<br />Chrome/Safari(win) 的热键是 ctrl-shift-B<br />Chrome/Safari(mac) 的热键是 command-shift-B</p>
+</section>
+		
+	
+	</body>
+</html>
