@@ -85,7 +85,7 @@
 
     function addStyleSheet() {
         var elem, id = "performance-timing";
-        var cssText = ".Plugin-timeing{position:fixed;top:0;left:0;z-index:999999;width:100%;height:1px;background-color:#fff;box-sizing:border-box;border-bottom:1px solid #000;box-shadow:0 6px 10px #aaa;margin:0;padding:10px;}.Plugin-timeing .bd{margin:0 20% 0 0;padding:0;}.Plugin-timeing .bd div{position:relative;min-width:10px;height:20px;background-color:#ae7276;border-radius:5px;margin:10px 0;padding:0;}.Plugin-timeing div p{position:absolute;left:100%;width:200px;line-height:20px;margin:0;padding:0 0 0 10px;}";
+        var cssText = ".Plugin-timeing{position:fixed;top:0;left:0;z-index:999999;width:100%;height:350px;background-color:#fff;box-sizing:border-box;border-bottom:1px solid #000;box-shadow:0 6px 10px #aaa;margin:0;padding:10px;}.Plugin-timeing .bd{margin:0 20% 0 0;padding:0;}.Plugin-timeing .bd div{position:relative;min-width:10px;height:20px;background-color:#ae7276;border-radius:5px;margin:10px 0;padding:0;}.Plugin-timeing div p{position:absolute;left:100%;width:200px;line-height:20px;margin:0;padding:0 0 0 10px;}";
 
         if (id && (id = id.replace('#', ''))) elem = document.getElementById('#' + id);
         if (elem) return; // 仅添加一次，不重复添加
