@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>transitionend event</title>
+
+    <style>
+
+        #test {
+            width:200px;
+            height: 200px;
+            padding:10px;
+            background-color: #8bb8f3;
+
+            transition-property: all;
+            transition-duration: 1s;
+            transition-timing-function: ease;
+        }
+        #test:hover {
+            background-color: #ff5500;
+        }
+
+    </style>
+
+</head>
+<body>
+
+
+<div id="test">touch me</div>
+
+
+<script>
+    document.getElementById("test").addEventListener("transitionend",function(ev){
+        console.log(ev);
+        alert(1);
+    })
+</script>
+
+<!--
+http://www.w3.org/TR/css3-transitions/#transition-events
+https://developer.mozilla.org/en-US/docs/Web/Reference/Events
+-->
+
+
+</body>
+</html>

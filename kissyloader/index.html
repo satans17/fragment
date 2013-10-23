@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>KISSY Loader</title>
+
+    <script src="http://g.tbcdn.cn/tb/item-touch/0.2.2/kissy/seed.js" charset="utf-8" data-config="{combine:true}"></script>
+    <script src="http://g.tbcdn.cn/tb/item-touch/0.2.2/kissy/import-style.js" charset="utf-8"></script>
+    <script src="./assets/mod.js" charset="utf-8"></script>
+    <script src="./assets/alias.js" charset="utf-8"></script>
+
+    <script>
+        KISSY.config({
+            packages: {
+                biz: {
+                    path: './assets/',
+                    debug:true,
+                    combine:false,
+                    tag: '20130829',
+                    charset: 'utf-8'
+                }
+            }
+        });
+
+        //提前加载所有CSS模块
+        KISSY.importStyle('biz/mod1,biz/mod2/v1');
+
+    </script>
+
+</head>
+<body>
+
+
+<!--普通模块-->
+<div id="J_mod1" class="mod1"></div>
+<script>
+    KISSY.use("mod",function(S,Mod){
+        Mod.add({
+            name:"biz/mod1/",
+            data:{
+                id:"#J_mod1"
+            }
+        })
+    })
+</script>
+
+
+<!--可以加载不同版本的模块-->
+<div id="J_mod2" class="mod2"></div>
+<script>
+    KISSY.use("mod",function(S,Mod){
+        Mod.add({
+            name:"biz/mod2/",
+            data:{
+                id:"#J_mod2",
+                txt:"节操不见了"
+            }
+        })
+    })
+</script>
+
+
+
+<script>
+    KISSY.use("mod",function(S,Mod){
+        Mod.exec();
+    })
+</script>
+
+
+</body>
+</html>
