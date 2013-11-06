@@ -1,0 +1,142 @@
+
+
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>img2txt：基于canvas的图片转字符画工具</title>
+</head>
+<body>
+<style type="text/css">
+    #hananBackgroundColorOpacity{margin:10px 0;}
+    #hananBackgroundColorOpacity span{margin-left:10px; color:#8a8c8e;}
+    #hananBackgroundColorOpacity textarea{width:650px; height:120px; padding:5px; color:#fff; background:#000;}
+    #hananBackgroundColorOpacity strong{color:#000;}
+    #hananBackgroundColorOpacity h3{color:#000; border-bottom:1px solid #ccc; line-height:57px;}
+    #hananBackgroundColorOpacity h3 a{ color: #000; text-decoration: none; float:right; font-family: "MICROSOFT YAHEI"; font-size: 22px;}
+    #hananBackgroundColorOpacity h3 .c{ clear:both; height:0px;margin:0;padding:0;}
+    #hananBackgroundColorOpacity .hanan_introduction,
+    #hananBackgroundColorOpacity .hanan_introduction a{  font-size:12px; color:#6E6E6E; }
+    #hananBackgroundColorOpacity img{border:none;}
+
+    /* contnet */
+    * {margin: 0;padding: 0;}
+    body {font-size: 12px; margin: 10px; font-family: simsun; background: #fff;}
+    p { height: 12px;}
+    p.ts { margin: 10px 0 0 0; width: 500px; float: left;}
+    span {width: 12px;}
+    #cv, #txt {float: left;}
+    #cv { margin-right: 5px;}
+    .bt{ height: 37px; }
+    form, input {width: 73px;height: 27px;}
+    form {
+        position: relative;
+        float: left;
+        margin: 0 10px 0 0;
+    }
+    #up-button{
+        position: absolute;
+        right: 0;
+        top: 0;
+        cursor: pointer;
+        opacity: 0;
+        filter: alpha(opacity=0);
+        outline: none;
+    }
+    #button{
+    }
+    iframe {display: none;}
+</style>
+<div id="hananBackgroundColorOpacity">
+    <h3><a href="http://www.cssha.com/">前端手记</a> img2txt：基于canvas的图片转字符画工具
+        <div class="c"></div>
+    </h3>
+</div>
+<div class="bt">
+    <form id="uf">
+        <input type="file" name="file" id="up-button"/>
+        <input type="button" id="button" value="选择图片"/>
+    </form>
+</div>
+
+<canvas id="cv">fuck ie</canvas>
+<div id="txt"></div>
+
+
+<script type="text/javascript">
+var cv = document.getElementById('cv');
+var c = cv.getContext('2d');
+var txtDiv = document.getElementById('txt');
+var fileBtn = document.getElementById("up-button");
+var img = new Image();
+img.src = 'a.jpg';
+img.onload = init; // 图片加载完开始转换
+fileBtn.onchange = getImg;
+ 
+// 根据灰度生成相应字符
+function toText(g) {
+    if (g <= 30) {
+        return '#';
+    } else if (g > 30 && g <= 60) {
+        return '&';
+    } else if (g > 60 && g <= 120) {
+        return '$';
+    }  else if (g > 120 && g <= 150) {
+        return '*';
+    } else if (g > 150 && g <= 180) {
+        return 'o';
+    } else if (g > 180 && g <= 210) {
+        return '!';
+    } else if (g > 210 && g <= 240) {
+        return ';';
+    }  else {
+        return '&nbsp;';
+    }
+}
+ 
+ 
+// 根据rgb值计算灰度
+function getGray(r, g, b) {
+    return 0.299 * r + 0.578 * g + 0.114 * b;
+}
+ 
+// 转换
+function init() {
+    txtDiv.style.width = img.width + 'px';
+    cv.width = img.width;
+    cv.height = img.height;
+    c.drawImage(img, 0, 0);
+    var imgData = c.getImageData(0, 0, img.width, img.height);
+    var imgDataArr = imgData.data;
+    var imgDataWidth = imgData.width;
+    var imgDataHeight = imgData.height;
+    var html = '';
+    for (h = 0; h < imgDataHeight; h += 12) {
+        var p = '<p>';
+        for (w = 0; w < imgDataWidth; w += 6) {
+            var index = (w + imgDataWidth * h) * 4;
+            var r = imgDataArr[index + 0];
+            var g = imgDataArr[index + 1];
+            var b = imgDataArr[index + 2];
+            var gray = getGray(r, g, b);
+            p += toText(gray);
+        }
+        p += '</p>';
+        html += p;
+    }
+    txtDiv.innerHTML = html;
+}
+ 
+// 获取图片
+function getImg(file) {
+    var reader = new FileReader();
+    reader.readAsDataURL(fileBtn.files[0]);
+    reader.onload = function () {
+        img.src = reader.result;
+    }
+}
+</script>
+
+
+</body>
+</html>
