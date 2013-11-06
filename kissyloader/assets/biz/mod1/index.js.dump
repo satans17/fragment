@@ -2,7 +2,7 @@
  * Created with JetBrains WebStorm.
  * User: Changyin
  * Date: 13-10-19
- * Time: ����12:34
+ * Time: 锟斤拷锟斤拷12:34
  * To change this template use File | Settings | File Templates.
  */
 KISSY.add(function(S,Ajax,Node){

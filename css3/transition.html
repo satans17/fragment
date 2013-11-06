@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>transitionend event</title>
+
+    <style>
+
+        div {
+            width:200px;
+            height: 50px;
+            padding:10px;
+            margin-bottom: 20px;
+            background-color: #8bb8f3;
+        }
+    </style>
+
+</head>
+<body>
+
+
+<div id="test1"></div>
+<div id="test2"></div>
+
+
+
+<script>
+    window.onload = function(){
+        var div = document.getElementById("test1");
+        div.style.width="500px";
+        //window.getComputedStyle(div).width;
+        div.style.transition="all 2s ease";
+    };
+</script>
+
+
+
+
+</body>
+</html>
