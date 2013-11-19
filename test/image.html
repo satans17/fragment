@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=10">
+    <title>加载图片</title>
+    <script src="http://g.tbcdn.cn/kissy/k/1.4.0/seed.js" charset="utf-8" data-config="{combine:true}"></script>
+    <style>body{margin:1em;}</style>
+
+</head>
+<body>
+
+
+
+
+
+<script>
+KISSY.use("node",function(S,Node){
+    var $= S.all,
+        doc = document;
+
+    function test1(){
+        var img = doc.createElement("img"),begin = new Date();
+        img.onload = function(){
+            var t = new Date()-begin;
+            $('<p>下载一张154KB的图片耗时：'+t+'ms</p>').appendTo(doc.body);
+            test2();
+        }
+        img.src="http://img02.taobaocdn.com/imgextra/i2/73793705/T2ovhkXzNXXXXXXXXX_!!73793705.jpg?"+Math.random();
+    }
+
+    function test2(){
+
+        $('<p>下载10张36KB的图片，<span id="count"></span></p>').appendTo(doc.body);
+
+        var imglist = [],x= 0, l=10;
+        var begin = new Date();
+        var em = $("#count");
+        for(var i=0;i<l;i++){
+            imglist.push('<img src="http://gtms01.alicdn.com/tps/i1/T11fM8FhJfXXbXVSUh-180-130.png?'+Math.random()+'">');
+        }
+        $(imglist.join("")).on("load",function(){
+            x++;
+            if(x>=10){
+                em.html('耗时'+(new Date()-begin)+'ms');
+            }else{
+                em.html('正在下载第'+x+'张');
+            }
+
+
+
+        }).hide().appendTo(doc.body);
+
+    }
+
+    test1();
+
+})
+</script>
+</body>
+</html>

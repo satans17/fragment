@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=10">
+    <title>KISSY Seed</title>
+    <style>body{margin:1em;}</style>
+    <script>
+        window.onload = function(){
+            var begin = new Date(),
+                    doc = document,
+                    node = doc.createElement("script");
+            node.charset = "utf-8";
+            node.setAttribute("data-config","{combine:true}");
+            node.async = true;
+            node.src = "http://g.tbcdn.cn/kissy/k/1.4.0/seed-min.js?"+Math.random();
+            node.onload = function(){
+                var t = new Date()-begin;
+                var p = doc.createElement("section");
+                p.innerHTML = '<h3>测试KISSY seed-min加载时间</h3><p>共42KB，gzip 15.6KB</p><p>耗时<b>'+t+'</b>ms</p>';
+                doc.body.appendChild(p);
+                testCore();
+            }
+            node.onerror = function(){
+                var p = doc.createElement("p");
+                p.innerHTML = '加载出错，请刷新页面重试';
+                doc.body.appendChild(p);
+            }
+            doc.getElementsByTagName("head")[0].appendChild(node);
+        };
+
+        function testCore(){
+            var begin = new Date();
+            KISSY.use("dom,event,node,anim,ajax",function(S,DOM,Event,Node,Anim,Ajax){
+                var $=Node.all;
+                var t = new Date()-begin;
+                $('<section><h3>测试dom,event,node,anim,ajax合计加载时间</h3><p>共89.4KB，gzip 32.3KB</p><p>耗时<b>'+t+'</b>ms</p></section>').appendTo(document.body);
+            })
+        }
+
+    </script>
+</head>
+<body>
+
+
+
+
+
+
+</body>
+</html>
