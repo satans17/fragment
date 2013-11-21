@@ -170,10 +170,10 @@
     progress.prototype = {
         sync: function(){
             var t =  new Date()-this.beginTime,
-                d =  t/10;
-            //最大300px，不然页面撑开了
-            if(d>300){
-                d=300;
+                d =  t/100;
+            //最大280px，不然页面撑开了
+            if(d>280){
+                d=280;
             }
             this.dom["d"].style.width = d+"px";
             this.dom["t"].style.left = (d+10)+"px";
