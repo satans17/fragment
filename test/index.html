@@ -187,7 +187,7 @@
             //大于30s算超时
             if(t>30000){
                 clearInterval(this.timer);
-                NETDATA[this.container] =   new Date()-this.beginTime
+                NETDATA[this.container] =   new Date()-this.beginTime;
                 this.dom["t"].innerText = "可能超时";
                 queue.next();
             }
@@ -467,6 +467,7 @@
             img.onload = function () {
                 window[id] = null;
                 alert("测试结果已成功提交，再次感谢你的参与！\n\n如果你愿意帮我们提高数据的准确性，可以刷新页面重新测试并提交测试结果。")
+                container.style.display="none";
             }
         },false);
     });
