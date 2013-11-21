@@ -138,7 +138,7 @@
 
 
 <script>
-
+    var timestamp = "20131121";
     var doc = document;
     var NETDATA = {}; //保存所有结果
     var queue = new function(){
@@ -223,7 +223,7 @@
         node.charset = "utf-8";
         node.setAttribute("data-config","{combine:true}");
         node.async = true;
-        node.src = "http://g.tbcdn.cn/kissy/k/1.4.0/seed-min.js?t="+Math.random();
+        node.src = "http://g.tbcdn.cn/kissy/k/1.4.0/seed-min.js?t="+timestamp;
         node.onload = function(){
             p.finish();
             queue.next();
@@ -256,7 +256,7 @@
         p.start();
         node.charset = "utf-8";
         node.async = true;
-        node.src = "http://g.tbcdn.cn/tb/tlabs/0.0.3/js/jquery/1.10.2.min.js?t="+Math.random();
+        node.src = "http://g.tbcdn.cn/tb/tlabs/0.0.3/js/jquery/1.10.2.min.js?t="+timestamp;
         node.onload = function(){
             p.finish();
             queue.next();
@@ -277,7 +277,7 @@
         p.start();
         node.charset = "utf-8";
         node.async = true;
-        node.src = "http://a.tbcdn.cn/mw/app/lottery/20131111/sb/zepto.min.js?t="+Math.random();
+        node.src = "http://a.tbcdn.cn/mw/app/lottery/20131111/sb/zepto.min.js?t="+timestamp;
         node.onload = function(){
             p.finish();
             queue.next();
@@ -306,7 +306,7 @@
             p.dom["t"].innerText = "加载失败";
             queue.next();
         }
-        img.src="http://gtms01.alicdn.com/tps/i1/T1zcAfXediXXa.U337-800-800.jpg?"+Math.random();
+        img.src="http://gtms01.alicdn.com/tps/i1/T1zcAfXediXXa.U337-800-800.jpg?"+timestamp;
     });
 
 
@@ -332,7 +332,7 @@
             imgs.push("http://gtms01.alicdn.com/tps/i1/T1wogiXa8iXXaiKCsI-120-120.png")
             imgs.push("http://gtms01.alicdn.com/tps/i1/T1gPjjFnXXXXaiKCsI-120-120.png")
             imgs.forEach(function(img){
-                imglist.push('<img src="'+img+'?t='+Math.random()+'" >');
+                imglist.push('<img src="'+img+'?t='+timestamp+'" >');
             });
 
             p.start();
@@ -361,7 +361,7 @@
         var node = doc.createElement("iframe");
         p.start();
         node.className="hidden";
-        node.src = "http://m.taobao.com/?t="+Math.random();
+        node.src = "http://m.taobao.com/?t="+timestamp;
         node.onload = function(){
             p.finish();
             queue.next();
@@ -383,7 +383,7 @@
         var node = doc.createElement("iframe");
         p.start();
         node.className="hidden";
-        node.src = "http://www.baidu.com/?t="+Math.random();
+        node.src = "http://www.baidu.com/?t="+timestamp;
         node.onload = function(){
             p.finish();
             queue.next();
@@ -405,7 +405,7 @@
         var node = doc.createElement("iframe");
         p.start();
         node.className="hidden";
-        node.src = "http://m.tmall.com/?t="+Math.random();
+        node.src = "http://m.tmall.com/?t="+timestamp;
         node.onload = function(){
             p.finish();
             queue.next();
@@ -427,7 +427,7 @@
         var node = doc.createElement("iframe");
         p.start();
         node.className="hidden";
-        node.src = "http://www.sina.cn/?t="+Math.random();
+        node.src = "http://www.sina.cn/?t="+timestamp;
         node.onload = function(){
             p.finish();
             queue.next();
@@ -458,12 +458,13 @@
                 alert("请选择你的网络类型");
             }
             var img = new Image();
-            var id = "_beacon_" + Math.random();
+            var id = "_beacon_" + timestamp;
 
             window[id] = img;
             img.src = "http://log.mmstat.com/ued.1.1.2?_gm:id=changyin_wireless&nh="+first+"&nt="+tl[0].value+"&ns="+JSON.stringify(NETDATA)+"&_r_=" + Math.random();
             img.onload = function () {
                 window[id] = null;
+                alert("测试结果已成功提交，再次感谢你的参与！\n\n如果你愿意帮我们提高数据的准确性，可以刷新页面重新测试并提交测试结果。")
             }
         },false);
     });
