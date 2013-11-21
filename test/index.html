@@ -56,24 +56,31 @@
 <body>
 
 <div>
-<p>请使用2g/3g网络帮助我们做一个简单的测试。所有下载的静态资源文件均来自TBCDN，会消耗你约上百KB的流量。你也可以顺便感受一下在2g/3g网络下打开不同大小文件所需要的时间。</p>
-<p class="alert">测试前，请确保你已经关闭了wifi，以免影响测试结果。非常感谢！</p>
+<p>请使用2g/3g网络帮助我们做一个简单的测试。所有下载的静态资源文件均来自TBCDN，会消耗你几百KB的流量。你也可以顺便感受一下在2g/3g网络下打开不同大小文件所需要的时间。</p>
 <button id="start" class="topcoat-button">开始测试</button>
 </div>
 
 
 <section id="testKISSYSEED">
-    <h3>测试KISSY seed-min加载时间</h3>
+    <h3>测试KISSY1.4 seed-min加载时间</h3>
     <p class="des">共42KB，gzip 15.6KB</p>
     <div class="progress"><p class="d"></p><p class="t"></p></div>
 </section>
 
 
 <section id="testKISSYCORE">
-    <h3>测试dom,event,node,anim,ajax合计加载时间</h3>
+    <h3>测试KISSY1.4dom,event,node,anim,ajax合计加载时间</h3>
     <p class="des">共89.4KB，gzip 32.3KB</p>
     <div class="progress"><p class="d"></p><p class="t"></p></div>
 </section>
+
+
+<section id="testJQUERY">
+    <h3>测试jQuery1.10加载时间</h3>
+    <p class="des">共90.9KB，gzip 32.4KB</p>
+    <div class="progress"><p class="d"></p><p class="t"></p></div>
+</section>
+
 
 
 <section id="testZEPTO">
@@ -104,8 +111,8 @@
 </section>
 
 
-<section id="testGOOGLE">
-    <h3>google.com onload时间</h3>
+<section id="testTMALL">
+    <h3>m.tmall.com onload时间</h3>
     <div class="progress"><p class="d"></p><p class="t"></p></div>
 </section>
 
@@ -123,14 +130,14 @@
         <label><input type="radio" name="nettype" value="2g"> 2g</label>
         <label><input type="radio" name="nettype" value="3g"> 3g</label>
     </p>
-    <p><button type="button">提交测试</button></p>
+    <p><button type="button">提交测试结果</button></p>
 </section>
 
 
 <script>
 
     var doc = document;
-    var NETDATA = []; //保存所有结果
+    var NETDATA = {}; //保存所有结果
     var queue = new function(){
         var arr = [];
         this.add = function(func){
@@ -164,6 +171,7 @@
             d:container.getElementsByClassName("d")[0],
             t:container.getElementsByClassName("t")[0]
         };
+        this.container = config.container;
         this.count = 0;
         this.interval = 100;
     }
@@ -171,6 +179,14 @@
         sync: function(){
             var t =  new Date()-this.beginTime,
                 d =  t/100;
+
+            //大于30s算超时
+            if(t>60000){
+                clearInterval(this.timer);
+                NETDATA[this.container] =   new Date()-this.beginTime
+                this.dom["t"].innerText = "可能超时";
+            }
+
             //最大280px，不然页面撑开了
             if(d>280){
                 d=280;
@@ -190,7 +206,7 @@
         },
         finish: function(){
             clearInterval(this.timer);
-            NETDATA.push(new Date()-this.beginTime);
+            NETDATA[this.container] =   new Date()-this.beginTime
             this.sync();
         }
     }
@@ -226,6 +242,28 @@
             p.finish();
             queue.next();
         })
+    });
+
+
+    queue.add(function(){
+        var p = new progress({
+            container:"testJQUERY"
+        })
+        var node = doc.createElement("script");
+        p.start();
+        node.charset = "utf-8";
+        node.async = true;
+        node.src = "http://g.tbcdn.cn/tb/tlabs/0.0.3/js/jquery/1.10.2.min.js?t="+Math.random();
+        node.onload = function(){
+            p.finish();
+            queue.next();
+        }
+        node.onerror = function(){
+            p.finish();
+            p.dom["t"].innerText = "加载失败";
+            queue.next();
+        }
+        doc.getElementsByTagName("head")[0].appendChild(node);
     });
 
     queue.add(function(){
@@ -343,15 +381,15 @@
 
     });
 
-    //google onload
+    //m.tmall.com
     queue.add(function(){
         var p = new progress({
-            container:"testGOOGLE"
+            container:"testTMALL"
         })
         var node = doc.createElement("iframe");
         p.start();
         node.className="hidden";
-        node.src = "http://www.google.com.hk/?t="+Math.random();
+        node.src = "http://m.tmall.com/?t="+Math.random();
         node.onload = function(){
             p.finish();
             queue.next();
@@ -402,7 +440,7 @@
             var id = "_beacon_" + Math.random();
 
             window[id] = img;
-            img.src = "http://log.mmstat.com/ued.1.1.2?_gm:id=changyin_wireless&nt="+tl[0].value+"&ns="+NETDATA.join(",")+"&_r_=" + Math.random();
+            img.src = "http://log.mmstat.com/ued.1.1.2?_gm:id=changyin_wireless&nt="+tl[0].value+"&ns="+JSON.stringify(NETDATA)+"&_r_=" + Math.random();
             img.onload = function () {
                 window[id] = null;
             }
