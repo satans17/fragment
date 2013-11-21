@@ -91,12 +91,12 @@
 
 
 <section id="testONEIMAGE">
-    <h3>下载一张154KB的图片耗时</h3>
+    <h3>下载一张207KB的图片耗时</h3>
     <div class="progress"><p class="d"></p><p class="t"></p></div>
 </section>
 
 <section id="testTENIMAGE">
-    <h3>下载10张36KB的图片耗时</h3>
+    <h3>下载10张20KB的图片耗时</h3>
     <div class="progress"><p class="d"></p><p class="t"></p></div>
 </section>
 
@@ -303,7 +303,7 @@
             p.dom["t"].innerText = "加载失败";
             queue.next();
         }
-        img.src="http://img02.taobaocdn.com/imgextra/i2/73793705/T2ovhkXzNXXXXXXXXX_!!73793705.jpg?"+Math.random();
+        img.src="http://gtms01.alicdn.com/tps/i1/T1zcAfXediXXa.U337-800-800.jpg?"+Math.random();
     });
 
 
@@ -316,10 +316,23 @@
             var p = new progress({
                 container:"testTENIMAGE"
             });
+
+            var imgs = [];
+            imgs.push("http://gtms01.alicdn.com/tps/i1/T1VGjLFgxXXXaiKCsI-120-120.png")
+            imgs.push("http://gtms01.alicdn.com/tps/i1/T1fTsfXoVhXXaiKCsI-120-120.png")
+            imgs.push("http://gtms01.alicdn.com/tps/i1/T1tXL6XaBmXXaiKCsI-120-120.png")
+            imgs.push("http://gtms01.alicdn.com/tps/i1/T13BTZFXJXXXaiKCsI-120-120.png")
+            imgs.push("http://gtms01.alicdn.com/tps/i1/T1GhZsXglhXXaiKCsI-120-120.png")
+            imgs.push("http://gtms01.alicdn.com/tps/i1/T1EJ_DFXVXXXaiKCsI-120-120.png")
+            imgs.push("http://gtms01.alicdn.com/tps/i1/T1gQcgXX0hXXaiKCsI-120-120.png")
+            imgs.push("http://gtms01.alicdn.com/tps/i1/T1.GsgXb4iXXaiKCsI-120-120.png")
+            imgs.push("http://gtms01.alicdn.com/tps/i1/T1wogiXa8iXXaiKCsI-120-120.png")
+            imgs.push("http://gtms01.alicdn.com/tps/i1/T1gPjjFnXXXXaiKCsI-120-120.png")
+            imgs.forEach(function(img){
+                imglist.push('<img src="'+img+'?t='+Math.random()+'" >');
+            });
+
             p.start();
-            for(var i=0;i<l;i++){
-                imglist.push('<img src="http://gtms01.alicdn.com/tps/i1/T11fM8FhJfXXbXVSUh-180-130.png?'+Math.random()+'">');
-            }
             $(imglist.join("")).on("load",function(){
                 x++;
                 if(x>=10){
