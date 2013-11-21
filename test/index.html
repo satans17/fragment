@@ -185,10 +185,11 @@
                 d =  t/100;
 
             //大于30s算超时
-            if(t>60000){
+            if(t>30000){
                 clearInterval(this.timer);
                 NETDATA[this.container] =   new Date()-this.beginTime
                 this.dom["t"].innerText = "可能超时";
+                queue.next();
             }
 
             //最大280px，不然页面撑开了
