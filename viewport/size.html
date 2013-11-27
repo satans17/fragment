@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="initial-scale=10">
+    <title>size</title>
+</head>
+<body>
+
+<script>
+
+    window.addEventListener("load",function(){
+
+        var p1 = document.createElement('p');
+        p1.innerHTML = "window.innerWidth:"+window.innerWidth+"<br/>window.innerHeight:"+window.innerHeight;
+        document.body.appendChild(p1);
+
+        var p2 = document.createElement('p');
+        p2.innerHTML = "screen.width:"+screen.width+"<br/>screen.height:"+screen.height;
+        document.body.appendChild(p2);
+
+        var p3 = document.createElement('p');
+        p3.innerHTML =  "document.documentElement.clientWidth:"+document.documentElement.clientWidth+"<br/>document.documentElement.clientHeight:"+document.documentElement.clientHeight;
+        document.body.appendChild(p3);
+
+
+    },false);
+</script>
+
+</body>
+</html>
