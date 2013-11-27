@@ -142,7 +142,7 @@
                 }
 
                 this.createQR = function (text){
-                    var url = URL.replace("{text}",encodeURIComponent(text)).replace("{t}",Math.random()),
+                    var url = URL.replace("{text}",encodeURIComponent(encodeURIComponent(text))).replace("{t}",Math.random()),
                             img = document.createElement("img"),
                             imgpanel = get("bookmark-qrcode-img");
                     imgpanel.innerHTML="";
