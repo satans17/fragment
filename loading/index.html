@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>菊花</title>
+<style>
+    body{margin:2em;}
+    div,p{margin:0;padding:0;}
+
+    .sec{margin:30px 0;padding:20px;border:1px solid #eee;border-radius: 5px;}
+    .sec h3{margin:0 0 20px;}
+
+/* Modules:= 转圈  {{{ */
+    @-moz-keyframes circle {
+        0% {-moz-transform: rotate(0deg);}
+        100% {-moz-transform: rotate(359deg);}
+    }
+    @-webkit-keyframes circle {
+        0% {-webkit-transform: rotate(0deg);}
+        100% {-webkit-transform: rotate(359deg);}
+    }
+    @-o-keyframes circle {
+        0% {-o-transform: rotate(0deg);}
+        100% {-o-transform: rotate(359deg);}
+    }
+    @-ms-keyframes circle {
+        0% { -ms-transform: rotate(0deg);}
+        100% { -ms-transform: rotate(359deg);}
+    }
+    @keyframes circle {
+        0% {transform: rotate(0deg);}
+        100% { transform: rotate(359deg);}
+    }
+/* }} */
+</style>
+</head>
+<body>
+
+<mark>之前测试发现iPad,N10等设备上gif图会让页面闪得厉害，所以尽量不要在移动设备使用gif做菊花图。</mark>
+
+<div class="sec">
+    <h3>最小占位图</h3>
+    <div>
+        http://g.tbcdn.cn/s.gif
+    </div>
+</div>
+
+<div class="sec">
+    <h3>主客的菊花.gif</h3>
+    <div>
+        <img src="http://a.tbcdn.cn/mw/base/styles/component/more/images/loading.gif">
+    </div>
+</div>
+
+<div class="sec">
+    <h3>淘公仔菊花 gif</h3>
+    <div>
+        <img src="http://img01.taobaocdn.com/tps/i1/T1cKm3XkRpXXXXXXXX-48-48.gif">
+    </div>
+</div>
+
+
+
+<div class="sec">
+<style>
+    .loading-s1{
+        position: relative;
+        width: 96px;
+        height: 96px;
+        background: rgba(0,0,0,.8);
+        border-radius: 8px;
+    }
+    .loading-s1 .bg {
+        position: absolute;
+        top:24px;
+        left:24px;
+        width:48px;
+        height:48px;
+        background: url("http://gtms03.alicdn.com/tps/i3/T1uPOOFfVaXXbLNxnk-96-192.png") no-repeat center center;
+        background-size: 48px;
+    }
+    .loading-s1 .bg.q {
+        background-position: 0 0;
+    }
+    .loading-s1 .bg.z {
+        background-position: 0 -48px;
+    }
+
+    .loading-s1 .q {
+        -moz-animation: circle 1s infinite linear;
+        -o-animation: circle 1s infinite linear;
+        -webkit-animation: circle 1s infinite linear;
+        animation: circle 1s infinite linear;
+    }
+</style>
+    <h3>淘公仔菊花 keyframes</h3>
+    <div class="loading-s1">
+        <p class="bg q"></p>
+        <p class="bg z"></p>
+    </div>
+</div>
+
+
+<div class="sec">
+    <h3>菊花 keyframes</h3>
+    <style>
+        ul,li{margin: 0;padding:0;list-style: none;}
+        li{display: inline-block;margin: 10px;}
+
+        .flower{
+            width:32px;
+            height: 32px;
+            background-size: 32px 32px;
+            -moz-animation: circle 1s infinite linear;
+            -o-animation: circle 1s infinite linear;
+            -webkit-animation: circle 1s infinite linear;
+            animation: circle 1s infinite linear;
+        }
+    </style>
+    <ul>
+        <li><div class="flower" style="background-image: url('img/Ventilator.png')"></div></li>
+        <li><div class="flower" style="background-image: url('img/Velocity.png')"></div></li>
+        <li><div class="flower" style="background-image: url('img/Twirl.png')"></div></li>
+        <li><div class="flower" style="background-image: url('img/Triangles-indicator.png')"></div></li>
+        <li><div class="flower" style="background-image: url('img/Surrounded-segments.png')"></div></li>
+        <li><div class="flower" style="background-image: url('img/Spinning-spiral.png')"></div></li>
+        <li><div class="flower" style="background-image: url('img/Spinning-octopus.png')"></div></li>
+        <li><div class="flower" style="background-image: url('img/Spinning-line.png')"></div></li>
+        <li><div class="flower" style="background-image: url('img/Spinning-gear.png')"></div></li>
+        <li><div class="flower" style="background-image: url('img/Solid-snake.png')"></div></li>
+        <li><div class="flower" style="background-image: url('img/Snakes-chasing.png')"></div></li>
+        <li><div class="flower" style="background-image: url('img/Snake.png')"></div></li>
+        <li><div class="flower" style="background-image: url('img/Rounded-blocks.png')"></div></li>
+        <li><div class="flower" style="background-image: url('img/Kaleidoscope.png')"></div></li>
+        <li><div class="flower" style="background-image: url('img/Flowing-gradient.png')"></div></li>
+        <li><div class="flower" style="background-image: url('img/Fish.png')"></div></li>
+        <li><div class="flower" style="background-image: url('img/Fading-lines.png')"></div></li>
+        <li><div class="flower" style="background-image: url('img/Fading-line.png')"></div></li>
+        <li><div class="flower" style="background-image: url('img/Chasing-arrows.png')"></div></li>
+        <li><div class="flower" style="background-image: url('img/Arrows-in-glass.png')"></div></li>
+        <li><div class="flower" style="background-image: url('img/4-Segments.png')"></div></li>
+    </ul>
+</div>
+
+
+</body>
+</html>

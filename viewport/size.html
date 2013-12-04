@@ -1,10 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="initial-scale=10">
+    <meta name="viewport" content="width=device-width">
     <title>size</title>
+
+    <style>
+        #w{width:100px;background-color: #F96400;}
+    </style>
+
 </head>
 <body>
+
+<p id="w">测试测试</p>
 
 <script>
 
@@ -21,6 +28,9 @@
         var p3 = document.createElement('p');
         p3.innerHTML =  "document.documentElement.clientWidth:"+document.documentElement.clientWidth+"<br/>document.documentElement.clientHeight:"+document.documentElement.clientHeight;
         document.body.appendChild(p3);
+
+        //alert(document.getElementById("w").offsetWidth);
+
 
 
     },false);
