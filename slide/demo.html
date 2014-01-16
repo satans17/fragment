@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+	<meta name="format-detection" content="telephone=no"/>
+    <title>demo标题</title>
+    <script src="http://g.tbcdn.cn/kissy/k/1.4.1/seed.js" charset="utf-8"></script>
+
+    <style>
+        div,ul,li{margin:0;padding:0;list-style: none;}
+
+        .slide{
+            width:100px;
+            overflow: hidden;
+            margin: 100px 0 0 100px;
+            border: 10px solid #000;
+        }
+        .ks-content{
+            width:600px;
+            height: 100px;
+        }
+        .ks-item{
+            float: left;
+            width:100px;
+            height:100px;
+        }
+    </style>
+
+    <script>
+        var S = KISSY;
+        if (S.Config.debug) {
+            S.config({
+                packages:[
+                    {
+                        name:"slide",
+                        path:"./src/",
+                        charset:"utf-8",
+                        ignorePackageNameInUri:true
+                    }
+                ]
+            });
+        }
+
+    </script>
+
+
+</head>
+<body>
+
+<div class="slide">
+    <ul class="ks-content">
+        <li class="ks-item" style="background-color: #F96400">1</li>
+        <li class="ks-item" style="background-color: #ff0000">2</li>
+        <li class="ks-item" style="background-color: #000000">3</li>
+        <li class="ks-item" style="background-color: #000066">4</li>
+        <li class="ks-item" style="background-color: #00334d">5</li>
+        <li class="ks-item" style="background-color: #008200">6</li>
+    </ul>
+</div>
+
+<script>
+    KISSY.use("slide/",function(S,Slide){
+        new Slide({
+            srcNode:".slide"
+        });
+
+    })
+</script>
+
+</body>
+</html>
