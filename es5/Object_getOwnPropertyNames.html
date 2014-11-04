@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+
+<script>
+    //返回一个由指定对象的所有自身属性的属性名(包括不可枚举属性)组成的数组.
+
+
+
+    var arr = ["a", "b", "c"];
+    alert(Object.keys(arr)); // 弹出"0,1,2"
+
+    // 类数组对象
+    var obj = { 0 : "a", 1 : "b", 2 : "c"};
+    alert(Object.keys(obj)); // 弹出"0,1,2"
+
+    // getFoo是个不可枚举的属性
+    var my_obj = Object.create({}, { getFoo : { value : function () { return this.foo } } });
+    my_obj.foo = 1;
+
+    alert(Object.keys(my_obj)); // 只弹出foo
+
+
+
+
+
+    var arr = ["a", "b", "c"];
+    print(Object.getOwnPropertyNames(arr).sort()); // 输出"0,1,2,length"
+
+    // 类数组对象
+    var obj = { 0: "a", 1: "b", 2: "c"};
+    print(Object.getOwnPropertyNames(obj).sort()); // 输出"0,1,2"
+
+    // 使用Array.forEach输出属性名和属性值
+    Object.getOwnPropertyNames(obj).forEach(function(val, idx, array) {
+        print(val + " -> " + obj[val]);
+    });
+    // 输出
+    // 0 -> a
+    // 1 -> b
+    // 2 -> c
+
+    //不可枚举属性var my_obj = Object.create({}, { getFoo: { value: function() { return this.foo; }, enumerable: false } });
+    my_obj.foo = 1;
+
+    print(Object.getOwnPropertyNames(my_obj).sort()); // 输出"foo, getFoo"
+
+</script>
+
+</body>
+</html>

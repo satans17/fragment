@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<script>
+    //https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty
+
+    function person(){}
+
+    //直接在一个对象上定义一个新属性，或者修改一个已经存在的属性， 并且返回这个对象。
+    Object.defineProperty(person,"t",{
+        value:"test"
+    })
+
+    console.log(person.t);
+
+
+
+
+    var obj = {};
+    //在一个对象上,添加或修改一个或者多个属性,并返回该对象.
+    Object.defineProperties(obj, {
+        "property1": {
+            value: true,
+            writable: true
+        },
+        "property2": {
+            value: "Hello",
+            writable: false
+        }
+        // 等等.
+    });
+    console.log(obj.property2) //弹出"Hello"
+
+
+
+    console.log(Object.getOwnPropertyDescriptor(obj,"property1"));
+
+
+
+</script>
+</body>
+</html>

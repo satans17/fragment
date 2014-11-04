@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+
+<script>
+
+function person(){
+
+}
+
+var p = new person();
+
+
+//console.log(Object.getPrototypeOf(new person()))
+console.log(person.prototype=== p.__proto__);
+
+
+function Type () {}
+
+var types = [
+    new Array(),
+    [],
+    new Boolean(),
+    true,             // remains unchanged
+    new Date(),
+    new Error(),
+    new Function(),
+    function () {},
+    Math,
+    new Number(),
+    1,                // remains unchanged
+    new Object(),
+    {},
+    new RegExp(),
+    /(?:)/,
+    new String(),
+    "test"            // remains unchanged
+];
+
+for( var i = 0; i < types.length; i++ ) {
+    types[i].constructor = Type;
+    types[i] = [ types[i].constructor, types[i] instanceof Type, types[i].toString() ];
+}
+
+console.log( types.join( "\n" ) );
+</script>
+
+</body>
+</html>

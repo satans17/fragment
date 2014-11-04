@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+
+
+<script>
+
+    var obj = {b:1};
+
+    Object.preventExtensions(obj);
+
+    obj.a = 1;
+
+    console.log(obj);
+
+    //判断一个对象是否是可扩展的(是否可以在它身上添加新的属性).
+    console.log(Object.isExtensible(obj))
+
+
+
+
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+
+<script>
+
+
+    //返回指定对象的原型(也就是该对象内部属性[[Prototype]]的值).
+
+    function person(){}
+
+    var t = new person();
+
+    console.log( Object.getPrototypeOf(t)  );
+
+
+    Object.setPrototypeOf = function (obj, proto) {
+        obj.__proto__ = proto;
+    };
+
+
+</script>
+
+</body>
+</html>

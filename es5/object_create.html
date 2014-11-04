@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+
+<script>
+    //https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/create
+
+
+var obj = Object.create(Object.prototype,{
+    a:{
+        writable:true,
+        configurable:true,
+        enumerable:true,
+        value:"a-value"
+    },
+    b:{
+        writable:false,
+        configurable:false,
+        value:"b-value"
+    }
+})
+
+
+
+
+
+//console.log(obj.a);
+//console.log(obj.b);
+//
+//obj.a="writable-a";
+//console.log(obj.a);
+//
+//obj.b = "writable-b";
+//console.log(obj.b);
+
+var t = Object.create({
+    get test(){
+        return 'get'
+    },
+    set test(){
+      console.log(1);
+    }
+})
+    console.log(t.test);
+    t.test = 1;
+
+
+</script>
+
+</body>
+</html>

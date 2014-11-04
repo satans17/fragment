@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+
+<script>
+
+    var obj={};
+    //该方法可以让一个对象密封并返回密封后的对象.密封对象是指那些:不能添加新的属性,不能删除已有属性,以及不能修改已有属性的可枚举性,可配置性,可写性,但可能可以修改已有属性的值的对象.
+    Object.seal(obj)
+
+    console.log(Object.isSealed())
+
+</script>
+
+</body>
+</html>
