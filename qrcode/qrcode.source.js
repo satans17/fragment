@@ -35,7 +35,7 @@
 
         this.addStyleSheet = function() {
             var elem, id = "bookmark-qrcode-stylesheet";
-            var cssText = ".bookmark-qrcode *{margin:0;padding:0;}.bookmark-qrcode{position:fixed;z-index:99999;top:10px;left:50%;margin-left:-200px;width:400px;background:#fff;border:10px solid #1570a6;}.bookmark-qrcode .img,.bookmark-qrcode .input{float:left;padding:10px;}.bookmark-qrcode .img{width:160px;height:160px;}.bookmark-qrcode .img img{display:block;width:180px;height:180px;}.bookmark-qrcode .input{width:180px;height:200px;background:#1570a6;padding:0 10px;}.bookmark-qrcode .input textarea{width:175px;height:120px;padding:5px;margin-bottom:10px;}.bookmark-qrcode .input button{padding:5px 10px;}.bookmark-qrcode .input a{display:block;font-size:12px;font-family:Arial,sans-serif;margin-top:10px;color:#fff;}";
+            var cssText = ".bookmark-qrcode *{margin:0;padding:0;box-sizing: content-box;}.bookmark-qrcode{position:fixed;z-index:99999;top:10px;left:50%;margin-left:-200px;background:#fff;border:10px solid #1570a6;}.bookmark-qrcode .img,.bookmark-qrcode .input{float:left;padding:10px;}.bookmark-qrcode .img{width:180px;height:180px;}.bookmark-qrcode .img img{display:block;width:180px;height:180px;}.bookmark-qrcode .input{width:180px;height:200px;background:#1570a6;padding:0 10px;}.bookmark-qrcode .input textarea{width:175px;height:120px;padding:5px;margin-bottom:10px;}.bookmark-qrcode .input button{padding:5px 10px;}.bookmark-qrcode .input a{display:block;font-size:12px;font-family:Arial,sans-serif;margin-top:10px;color:#fff;}";
 
             if (id && (id = id.replace('#', ''))) elem = document.getElementById('#' + id);
             if (elem) return; // 仅添加一次，不重复添加
